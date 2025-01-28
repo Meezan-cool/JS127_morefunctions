@@ -198,6 +198,16 @@ const combine = (resultAlert,operation,...numbers) => {
     resultAlert(sum,`addition`)
     return sum
 }
+
+const showResult=(message, result)=>{
+    alert(`${message} ${result}`)
+}
+
+console.log(combine(showResult.bind(this,`the addition of argument is`),'ADD','hii',2,3,4,5))
+console.log(combine(showResult.bind(this,`the substraction of argument is`),'SUBTRACT',1,2,3,4,5))
+
+
+// 
 // const subtractUp = function(resultAlert,...numbers){
 //     let sub = 0 
 //     // Arguments can be used in function keywords it's used before es6
@@ -209,14 +219,6 @@ const combine = (resultAlert,operation,...numbers) => {
 //     return sub
 // } 
 
-const showResult=(result, message )=>{
-    alert(`the ${message} of argument is ${result}`)
-}
-
-console.log(combine(showResult,'ADD','hii',2,3,4,5))
-console.log(combine(showResult,'SUBTRACT',1,2,3,4,5))
-
-// Call Back Functions
 // const checkInput=(...strings)=>{
 //     let checker = false;
 //     for(let str of strings){
@@ -228,7 +230,7 @@ console.log(combine(showResult,'SUBTRACT',1,2,3,4,5))
 //     return checker ? false : true
 //   } 
   
-  
+// Call Back Functions -> Function passed as arguments
 //   const sayHello1= (checkInput, ...strings) => {
 //       let emptyString = checkInput(...strings);
 //       if(!emptyString){
@@ -242,3 +244,19 @@ console.log(combine(showResult,'SUBTRACT',1,2,3,4,5))
     
 // let greetPerson = sayHello1(checkInput ,'Meezan','Dummy');
 // console.log(greetPerson)
+
+const person = {
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function () {
+      return this.firstName + " " + this.lastName;
+    }
+  }
+  
+  const member = {
+    firstName:"Hege",
+    lastName: "Nilsen",
+  }
+  
+  let fullName = person.fullName.bind(member);
+  console.log(fullName());
