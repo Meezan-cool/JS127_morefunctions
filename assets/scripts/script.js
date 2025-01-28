@@ -90,7 +90,7 @@ const getPlayerChoice= function(){
     const selection = prompt(`${ROCK}, ${PAPER} & ${SCISSORS}?`, '')?.toUpperCase();
     if(selection !== ROCK && selection !== PAPER && selection !== SCISSORS){
         alert(`Invalid Choice! We Chose ${DEFAULT_USER_CHOICE} For you!`);
-        return DEFAULT_USER_CHOICE
+        return;
     }
     return selection
 }
@@ -106,14 +106,14 @@ function getComputerChoice(){
     }
 }
 
-const getWinner = (cChoice, pChoice) => 
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) => 
       cChoice === pChoice ? RESULT_DRAW : 
     (
         cChoice === ROCK && pChoice === PAPER || 
         cChoice === PAPER && pChoice === SCISSORS ||
         cChoice === SCISSORS && pChoice === ROCK
     ) ? RESULT_PLAYER_WINS: RESULT_COMPUTER_WINS
-
+ 
     // if(cChoice === pChoice){
     //     return RESULT_DRAW
     // }else if(
@@ -135,8 +135,14 @@ startGameBtn.addEventListener('click', () => {
     console.log('Game is Starting');
     const playerChoice = getPlayerChoice();
     const computerChoice = getComputerChoice();
-    const winner = getWinner(computerChoice,playerChoice);
-    let message = `You picked ${playerChoice}, computer picked ${computerChoice}, you `
+    let winner;
+    if(playerChoice){
+         winner = getWinner(computerChoice,playerChoice);
+    }
+    else{
+         winner = getWinner(computerChoice);
+    }
+    let message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, you `
     console.log(winner)
     if(winner === RESULT_DRAW){
         message = message + 'had a draw'
@@ -174,3 +180,48 @@ startGameBtn.addEventListener('click', () => {
 
 // const loadPerson = pName => ({name: pName });
 // console.log(loadPerson("Meezan"))
+
+// Rest Parameters
+const sumUp = (...numbers) => {
+    // Function inside a function
+    const validateNumber = (num) => {
+        return isNaN(num)? 0 : num
+    }
+    let sum = 0 
+    for(let num of numbers){
+        sum += validateNumber(num)
+    }
+    return sum
+}
+const subtractUp = function(){
+    let sub = 0 
+    // Arguments can be used in function keywords it's used before es6
+    for(let num of arguments){
+        sub -= num
+    }
+    return sub
+}
+
+console.log(sumUp('hii',2,3,4,5))
+console.log(subtractUp(1,2,3,4,5))
+
+
+const checkInput=(...strings)=>{
+    let checker = false;
+    for(let str of strings){
+      if(str === ""){
+         checker = true;
+         break
+      }
+    }
+    return checker ? "Empty String Finded" : 'Everything Is Ok' 
+  } 
+  
+  console.log(checkInput('Meezan','Arshlan','Shahrukh'))
+  
+  const sayHello= (greet='Hi',name = 'Dummy') => `${greet} ${name}`
+  const sayHello1= (name = 'Dummy') => {
+    return `Hi ${name}`
+  }
+  
+  console.log(sayHello())
