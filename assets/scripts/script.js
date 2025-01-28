@@ -182,46 +182,63 @@ startGameBtn.addEventListener('click', () => {
 // console.log(loadPerson("Meezan"))
 
 // Rest Parameters
-const sumUp = (...numbers) => {
+const combine = (resultAlert,operation,...numbers) => {
     // Function inside a function
     const validateNumber = (num) => {
         return isNaN(num)? 0 : num
     }
     let sum = 0 
     for(let num of numbers){
-        sum += validateNumber(num)
+        if(operation === 'ADD'){
+            sum += validateNumber(num)
+        }else{
+            sum -= validateNumber(num)
+        }
     }
+    resultAlert(sum,`addition`)
     return sum
 }
-const subtractUp = function(){
-    let sub = 0 
-    // Arguments can be used in function keywords it's used before es6
-    for(let num of arguments){
-        sub -= num
-    }
-    return sub
+// const subtractUp = function(resultAlert,...numbers){
+//     let sub = 0 
+//     // Arguments can be used in function keywords it's used before es6
+//     // for(let num of arguments){}
+//     for(let num of numbers){
+//         sub -= num
+//     }
+//     resultAlert(sub,'subtraction') 
+//     return sub
+// } 
+
+const showResult=(result, message )=>{
+    alert(`the ${message} of argument is ${result}`)
 }
 
-console.log(sumUp('hii',2,3,4,5))
-console.log(subtractUp(1,2,3,4,5))
+console.log(combine(showResult,'ADD','hii',2,3,4,5))
+console.log(combine(showResult,'SUBTRACT',1,2,3,4,5))
 
-
-const checkInput=(...strings)=>{
-    let checker = false;
-    for(let str of strings){
-      if(str === ""){
-         checker = true;
-         break
-      }
-    }
-    return checker ? "Empty String Finded" : 'Everything Is Ok' 
-  } 
+// Call Back Functions
+// const checkInput=(...strings)=>{
+//     let checker = false;
+//     for(let str of strings){
+//       if(str === ""){
+//          checker = true;
+//          break
+//       }
+//     }
+//     return checker ? false : true
+//   } 
   
-  console.log(checkInput('Meezan','Arshlan','Shahrukh'))
   
-  const sayHello= (greet='Hi',name = 'Dummy') => `${greet} ${name}`
-  const sayHello1= (name = 'Dummy') => {
-    return `Hi ${name}`
-  }
-  
-  console.log(sayHello())
+//   const sayHello1= (checkInput, ...strings) => {
+//       let emptyString = checkInput(...strings);
+//       if(!emptyString){
+//           return `There is Empty String`
+//       } else{
+//         for(let str of strings){
+//             console.log(`Hi ${str}`)
+//         }
+//       }
+//     }
+    
+// let greetPerson = sayHello1(checkInput ,'Meezan','Dummy');
+// console.log(greetPerson)
